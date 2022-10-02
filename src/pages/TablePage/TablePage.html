@@ -1,0 +1,28 @@
+<section class="table-page q-py-md">
+  <template v-if="ui.data_fetchStatus === 'SUCCESSFUL'">
+    <q-table
+      class="my-sticky-header-column-table"
+      :rows="tableData"
+      :columns="columns"
+      row-key="index"
+      :rows-per-page-options="[0]"
+      :dark="false"
+    />
+  </template>
+  <template v-if="ui.data_fetchStatus === 'FAILED'">
+    <div class="flex flex-center">
+      <div>
+        <div class="">Failde to fetch the data</div>
+        <div class="">
+          <q-btn
+            icon="replay"
+            label="try again"
+            size="sm"
+            flat
+            @click="fetchTableData()"
+          />
+        </div>
+      </div>
+    </div>
+  </template>
+</section>

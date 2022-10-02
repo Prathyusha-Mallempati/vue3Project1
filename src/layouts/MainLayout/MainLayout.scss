@@ -1,0 +1,21 @@
+.main-layout {
+	
+    a {
+        text-decoration: none;
+        color: #f0f3f0;
+        padding: 5px 0px;
+        display: block;
+    }
+    .text-class {
+        @media screen and (max-width: 500px) {
+			font-size: 0.875rem;
+		}
+    }
+    .mobile-btn {
+        @media screen and (max-width: 768px) {
+            position: relative; 
+            text-align: center;
+            
+		}
+    }
+}

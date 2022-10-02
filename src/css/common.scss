@@ -1,0 +1,25 @@
+.container-width {
+  max-width: 1340px;
+  margin-right: auto;
+  margin-left: auto;
+  @media screen and (min-width: 768px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+.body-bg {
+  background: #fcfcfc;
+}
+
+// GLOBAL SHADOW
+.q-card,
+.q-date,
+.q-table__card {
+  box-shadow: 0 0 9px 4px #f4f4f4;
+}
+
+.card-shadow {
+  -webkit-box-shadow: 2px 2px 18px 6px rgb(0 0 0 / 12%);
+  box-shadow: 2px 2px 18px 6px rgb(0 0 0 / 12%);
+  background-color: #fff;
+}

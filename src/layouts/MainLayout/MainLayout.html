@@ -1,0 +1,136 @@
+<section class="main-layout">
+  <q-layout view="hHh lpR fFf">
+    <q-header class="body-bg text-black card-shadow">
+      <q-toolbar
+        class="container-width q-mx-auto q-py-md"
+        :class="{'q-px-xl': !$q.screen.lt.sm }"
+      >
+        <q-btn
+          dense
+          flat
+          round
+          icon="menu"
+          @click="left = !left"
+          v-if="$q.screen.lt.sm"
+        />
+
+        <div
+          v-for="tabItem in header_tabs"
+          v-if="!$q.screen.lt.sm"
+          :key="tabItem.value"
+        >
+          <q-btn
+            no-caps
+            class="text-body1"
+            padding="0 md"
+            color="black"
+            flat
+            denselabel="table"
+            :label="tabItem.label"
+            :to="{name: tabItem.to}"
+          />
+        </div>
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer v-model="left" side="left" elevated>
+      <q-tabs
+        v-model="tab"
+        no-caps
+        vertical
+        stretch
+        shrink
+        active-bg-color="grey-3"
+        class="full-width"
+        indicator-color="primary"
+        switch-indicator
+      >
+        <q-route-tab
+          v-for="tabItem in header_tabs"
+          :key="tabItem.value"
+          class="text-black"
+          :to="{name: tabItem.to}"
+          no-caps
+          :name="tabItem.value"
+          :label="tabItem.label"
+          content-class="sub_tabs"
+          active-class="text-weight-bold"
+        />
+      </q-tabs>
+    </q-drawer>
+
+    <q-page-container
+      class="q-mx-auto container-width"
+      style="min-height: 300px"
+    >
+      <div class="row justify-end q-py-md">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+          <q-item dense>
+            <q-item-section top>
+              <q-select
+                v-model="searchKeyword"
+                use-input
+                dense
+                label="Search"
+                input-debounce="0"
+                options-dense
+                hide-dropdown-icon
+                :options="options"
+                clearable
+                fill-input
+                hide-selected
+                @filter="filterFn"
+                @input-value="setSearchString"
+                @clear="clearSearchKey"
+                @keydown.enter.prevent="productsSearchBtnClicked"
+                @update:model-value="productsSearchBtnClicked"
+                :popup-content-style="{ width: '300px' }"
+              >
+                <!-- @update:model-value="$emit('update:name', $event)" -->
+                <template
+                  v-slot:no-option
+                  v-if="searchValue && searchValue.length>1"
+                >
+                  <q-item>
+                    <q-item-section class="text-grey">
+                      No results
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+              <!-- <q-input
+                dense
+                outline
+                v-model.trim="searchKeyword"
+                type="text"
+                label="Search with name"
+                @keydown.enter.prevent="productsSearchBtnClicked"
+              >
+                <template v-if="searchKeyword.length" v-slot:append>
+                  <q-icon
+                    name="close"
+                    @click="clearSearchKey"
+                    class="cursor-pointer"
+                  />
+                </template>
+              </q-input> -->
+            </q-item-section>
+            <q-item-section side>
+              <q-btn
+                dense
+                no-caps
+                outline
+                color="primary"
+                label="Search"
+                :disable="!searchKeyword.length"
+                @click="productsSearchBtnClicked"
+              />
+            </q-item-section>
+          </q-item>
+        </div>
+      </div>
+      <router-view />
+    </q-page-container>
+    <div class="q-pt-xl"></div>
+  </q-layout>
+</section>

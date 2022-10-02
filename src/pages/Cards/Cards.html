@@ -1,0 +1,63 @@
+<section class="my-cards q-py-md">
+  <div class="row q-col-gutter-lg" :class="{'q-px-md' : $q.screen.lt.sm}">
+    <div
+      v-for="(card,index) in cards"
+      :key="index"
+      class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+    >
+      <q-card flat bordered class="my-card">
+        <q-card-section>
+          <div class="row items-center no-wrap">
+            <div class="col">
+              <div class="text-h6">{{card.title}}</div>
+              <div class="text-subtitle2">{{card.caption}}</div>
+            </div>
+            <div class="col-auto">
+              <q-btn
+                color="grey-7"
+                round
+                flat
+                icon="delete_outline"
+                dense
+                @click="confirmationToDelete(card,index)"
+              >
+              </q-btn>
+            </div>
+          </div>
+        </q-card-section>
+
+        <q-card-section> {{ card.desc }} </q-card-section>
+      </q-card>
+    </div>
+  </div>
+  <div v-if="!cards.length" class="text-center">No data found</div>
+  <q-dialog v-model="isConfirmationPopupOpen">
+    <q-card>
+      <q-bar> Confirmation </q-bar>
+
+      <q-card-section>
+        <div>Are you sure, do you want to deelte {{currentCard.title}} ?</div>
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn
+          flat
+          label="no, go back"
+          v-close-popup
+          color="primary"
+          @click="closePopup()"
+          dense
+          no-caps
+        />
+        <q-btn
+          label="yes"
+          @click="deleteCard"
+          color="primary"
+          v-close-popup
+          outline
+          dense
+          no-caps
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+</section>
